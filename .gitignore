@@ -1,0 +1,24 @@
+# Local secrets and user-specific config
+.env
+.env.*
+*.local.json
+feishu-project.config.json
+
+# Logs and temporary files
+*.log
+*.tmp
+*.bak
+*.cache
+tmp/
+temp/
+
+# Build/package outputs
+*.zip
+*.tar
+*.tar.gz
+
+# OS/editor noise
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/

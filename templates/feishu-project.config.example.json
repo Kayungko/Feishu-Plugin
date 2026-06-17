@@ -1,0 +1,12 @@
+{
+  "baseUrl": "https://project.feishu.cn",
+  "pluginId": "YOUR_PROJECT_PLUGIN_ID",
+  "pluginSecret": "YOUR_PROJECT_PLUGIN_SECRET",
+  "pluginAccessToken": "",
+  "authPath": "",
+  "tokenField": "data.plugin_access_token",
+  "authMode": "",
+  "userKey": "YOUR_PROJECT_USER_KEY",
+  "defaultProjectKey": "mtsgame",
+  "defaultHeaders": {}
+}

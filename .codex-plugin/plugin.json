@@ -1,0 +1,24 @@
+{
+  "name": "feishu-workspace",
+  "version": "0.1.0+codex.20260617135629",
+  "description": "Codex plugin for Feishu/Lark office workspace workflows through lark-cli, including docs, project, mail, approval, meetings, tasks, and more.",
+  "author": {
+    "name": "Kayung"
+  },
+  "skills": "./skills/",
+  "interface": {
+    "displayName": "Feishu Workspace",
+    "shortDescription": "Use Feishu/Lark workspace from Codex.",
+    "longDescription": "Feishu Workspace lets Codex route Feishu links and operate common office workspace objects through lark-cli: docs, wiki, sheets, base, drive, calendar, minutes, VC, notes, tasks, IM, mail, approval, contacts, OKR, attendance, slides, whiteboard, markdown, apps, events, Feishu Project work items, workbench views, and reusable team workflows.",
+    "developerName": "Kayung",
+    "category": "Productivity",
+    "composerIcon": "./assets/icon.svg",
+    "logo": "./assets/icon.svg",
+    "capabilities": ["Read", "Write", "Workflow"],
+    "defaultPrompt": [
+      "读取这个飞书链接并总结重点",
+      "把这些内容整理成飞书文档",
+      "从会议纪要提取行动项"
+    ]
+  }
+}

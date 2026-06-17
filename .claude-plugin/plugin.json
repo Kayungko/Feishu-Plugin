@@ -1,0 +1,19 @@
+{
+  "name": "feishu-workspace",
+  "displayName": "Feishu Workspace",
+  "version": "0.1.0",
+  "description": "Claude Code plugin for Feishu/Lark office workspace workflows through lark-cli, including docs, project, mail, approval, meetings, tasks, and more.",
+  "author": {
+    "name": "Kayung"
+  },
+  "keywords": [
+    "feishu",
+    "lark",
+    "lark-cli",
+    "workspace",
+    "docs",
+    "calendar",
+    "meeting",
+    "task"
+  ]
+}

@@ -1,0 +1,18 @@
+{
+  "name": "feishu-workspace-market",
+  "description": "Feishu/Lark workspace plugins for Claude Code, powered by lark-cli.",
+  "owner": {
+    "name": "Kayung"
+  },
+  "plugins": [
+    {
+      "name": "feishu-workspace",
+      "source": "./",
+      "description": "Claude Code plugin for Feishu/Lark office workspace workflows through lark-cli: docs, wiki, sheets, base, drive, calendar, minutes, tasks, IM, mail, approval, contacts, Project, and common office workflows.",
+      "version": "0.1.0",
+      "author": {
+        "name": "Kayung"
+      }
+    }
+  ]
+}
