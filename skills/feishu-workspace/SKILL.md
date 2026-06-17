@@ -26,8 +26,8 @@ Keep updates short and action-oriented. Do not explain internal plugin routing, 
 
 When the environment is unknown, check CLI and auth:
 
-```powershell
-../../scripts/check_lark_cli.ps1 -VerifyAuth
+```bash
+node ../../scripts/check_lark_cli.mjs --verify-auth
 ```
 
 If auth fails or a scope is missing, follow the CLI hint and ask the user only when manual action is required.
@@ -36,22 +36,22 @@ If auth fails or a scope is missing, follow the CLI hint and ask the user only w
 
 Use these entry points for team distribution and troubleshooting:
 
-- Environment diagnosis: `../../scripts/diagnose_feishu_workspace.ps1`
-- Team help summary: `../../scripts/get_team_help.ps1`
-- Smoke test: `../../scripts/run_workspace_smoke_test.ps1`
-- CLI capability inventory: `../../scripts/check_lark_cli_capabilities.ps1`
-- Error normalization: `../../scripts/normalize_lark_error.ps1`
-- Standard write preview: `../../scripts/new_workspace_write_plan.ps1`
-- Meeting action extraction: `../../scripts/extract_meeting_action_items.ps1`
-- Task draft preview from actions: `../../scripts/preview_task_creation.ps1`
+- Environment diagnosis: `node ../../scripts/diagnose_feishu_workspace.mjs`
+- Team help summary: `node ../../scripts/get_team_help.mjs`
+- Smoke test: `node ../../scripts/run_workspace_smoke_test.mjs`
+- CLI capability inventory: `node ../../scripts/check_lark_cli_capabilities.mjs`
+- Error normalization: `node ../../scripts/normalize_lark_error.mjs`
+- Standard write preview: `node ../../scripts/new_workspace_write_plan.mjs`
+- Meeting action extraction: `node ../../scripts/extract_meeting_action_items.mjs`
+- Task draft preview from actions: `node ../../scripts/preview_task_creation.mjs`
 - Prompt examples: `../../references/prompt-templates.md`
 - Workflow recipes: `../../references/workflow-recipes.md`
 
-When the user asks "你能做什么", "怎么用", "给我一些提示词", or similar, run `get_team_help.ps1` and summarize its output instead of listing internal skill files.
+When the user asks "你能做什么", "怎么用", "给我一些提示词", or similar, run `get_team_help.mjs` and summarize its output instead of listing internal skill files.
 
-When the user asks to check whether the plugin package itself is ready, run `run_workspace_smoke_test.ps1`. Use `-SkipAuthVerify` only when the user wants a package-only check without validating Feishu login.
+When the user asks to check whether the plugin package itself is ready, run `run_workspace_smoke_test.mjs`. Use `--skip-auth-verify` only when the user wants a package-only check without validating Feishu login.
 
-When a CLI/API call fails, run `normalize_lark_error.ps1` or use its categories before replying. Prefer actionable fixes over raw stack traces.
+When a CLI/API call fails, run `normalize_lark_error.mjs` or use its categories before replying. Prefer actionable fixes over raw stack traces.
 
 ## Routing
 
@@ -90,13 +90,13 @@ Read only the relevant internal guide when the task needs more detail:
 - For docs commands, include `--api-version v2`.
 - Prefer shortcut commands such as `docs +fetch`, `docs +create`, `docs +update`, `calendar +agenda`, `contact +search-user`, `sheets ...`, and `wiki ...` before raw OpenAPI calls.
 - For `project.feishu.cn` links, use URL parsing and `feishu-project`; do not route them to normal Docs, Task, or Wiki commands.
-- For Feishu Project reads/writes, first check `get_feishu_project_config.ps1`; if credentials are missing, return parsed URL context plus the missing configuration fields.
-- If the user asks whether official `lark-cli` supports Feishu Project, run `check_lark_cli_project_support.ps1`; if official support appears in a future version, prefer official commands before the custom Project OpenAPI fallback.
+- For Feishu Project reads/writes, first check `get_feishu_project_config.mjs`; if credentials are missing, return parsed URL context plus the missing configuration fields.
+- If the user asks whether official `lark-cli` supports Feishu Project, run `check_lark_cli_project_support.mjs`; if official support appears in a future version, prefer official commands before the custom Project OpenAPI fallback.
 - Use `--format json` for machine-readable output.
-- Use PowerShell native quoting and avoid shell string concatenation for user-provided values.
+- Pass user-provided values as separate arguments; avoid building command strings by concatenation.
 
 ## Writes and shared-resource changes
 
-Before writes that affect shared resources or other people, show a concise preview and ask for confirmation. Use `../../scripts/new_workspace_write_plan.ps1` when the operation has a concrete target and payload. If `lark-cli` exits with `confirmation_required`, stop and ask the user. Do not append `--yes` unless the user explicitly confirms the exact operation.
+Before writes that affect shared resources or other people, show a concise preview and ask for confirmation. Use `node ../../scripts/new_workspace_write_plan.mjs` when the operation has a concrete target and payload. If `lark-cli` exits with `confirmation_required`, stop and ask the user. Do not append `--yes` unless the user explicitly confirms the exact operation.
 
 When a CLI call fails, summarize the attempted operation, target, error message, and likely fix. If `_notice.update` appears, finish the current task and mention the available `lark-cli update`.

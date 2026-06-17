@@ -17,6 +17,6 @@ Creating or updating presentations changes shared documents. Show a concise prev
 
 ## CLI discovery
 
-```powershell
+```bash
 lark-cli slides --help
 ```

@@ -8,8 +8,8 @@ argument-hint: "<飞书链接>"
 步骤：
 
 1. 先解析链接类型：
-   ```powershell
-   powershell -ExecutionPolicy Bypass -File "${CLAUDE_PLUGIN_ROOT}/scripts/parse_feishu_url.ps1" "$ARGUMENTS"
+   ```bash
+   node "${CLAUDE_PLUGIN_ROOT}/scripts/parse_feishu_url.mjs" "$ARGUMENTS"
    ```
 2. 按 `feishu-workspace` skill 的路由规则，用 `lark-cli` 以用户身份读取内容（docs 命令加 `--api-version v2`，优先 `docs +fetch` 等快捷命令，`--format json`）。
 3. 输出中文总结：**重点**、**待办事项**、**需要确认的问题** 三部分。

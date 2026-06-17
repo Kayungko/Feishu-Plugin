@@ -86,7 +86,7 @@
 
 ## 在 Claude Code 桌面端使用
 
-同一个包现在也支持 Claude Code 桌面端，和 Codex 共用同一套能力、脚本和安全规则，不需要装两份。
+同一个包现在也支持 Claude Code 桌面端，和 Codex 共用同一套能力、脚本和安全规则，不需要装两份。脚本已统一改成 Node.js（随 `lark-cli` 一起装好，需 Node 18+），Windows、macOS、Linux 都能直接用。
 
 接入方式（团队）：
 

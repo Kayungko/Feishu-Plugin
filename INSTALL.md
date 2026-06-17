@@ -4,13 +4,17 @@ This plugin lets Codex use Feishu/Lark workspace features through `lark-cli`: do
 
 The public Codex entry is one skill: `feishu-workspace`. Internal guides are hidden by default so version/details pages stay readable.
 
+## Prerequisites
+
+The helper scripts run on Node.js (already installed alongside `lark-cli`, which is the npm package `@larksuite/cli`). Node 18+ is required (global `fetch` and modern ESM). The scripts are cross-platform: Windows, macOS, and Linux all run them with `node`.
+
 ## Install
 
 Use the packaged zip or the local personal marketplace source prepared by the maintainer.
 
 Local personal marketplace install:
 
-```powershell
+```bash
 codex plugin add feishu-workspace@personal
 ```
 
@@ -34,7 +38,7 @@ The same package also ships a Claude Code plugin manifest (`.claude-plugin/plugi
 
 Load the plugin directly without installing:
 
-```powershell
+```bash
 claude --plugin-dir .
 ```
 
@@ -68,8 +72,8 @@ Bump `version` in `.claude-plugin/plugin.json` and `.claude-plugin/marketplace.j
 
 Check Feishu CLI and user auth:
 
-```powershell
-powershell -ExecutionPolicy Bypass -File .\scripts\check_lark_cli.ps1 -VerifyAuth
+```bash
+node ./scripts/check_lark_cli.mjs --verify-auth
 ```
 
 Expected:
@@ -84,14 +88,14 @@ If auth fails, run the login flow suggested by `lark-cli`. Use user identity for
 
 Run package smoke test:
 
-```powershell
-powershell -ExecutionPolicy Bypass -File .\scripts\run_workspace_smoke_test.ps1
+```bash
+node ./scripts/run_workspace_smoke_test.mjs
 ```
 
 Package-only test without Feishu auth verification:
 
-```powershell
-powershell -ExecutionPolicy Bypass -File .\scripts\run_workspace_smoke_test.ps1 -SkipAuthVerify
+```bash
+node ./scripts/run_workspace_smoke_test.mjs --skip-auth-verify
 ```
 
 Expected checks:
@@ -152,7 +156,7 @@ In a new Codex thread, test these prompts:
 Calendar/doc/sheet access fails:
 
 - Cause: missing auth, expired token, missing scope, or no document permission.
-- Fix: run `check_lark_cli.ps1 -VerifyAuth`, then retry after login or permission grant.
+- Fix: run `node ./scripts/check_lark_cli.mjs --verify-auth`, then retry after login or permission grant.
 
 Project links cannot be read:
 
@@ -162,9 +166,9 @@ Project links cannot be read:
 Output is too verbose:
 
 - Ask: `只给结论和下一步，不要展开内部命令。`
-- Maintainer should check `get_team_help.ps1`, `run_workspace_smoke_test.ps1`, and progress style rules in `skills/feishu-workspace/SKILL.md`.
+- Maintainer should check `get_team_help.mjs`, `run_workspace_smoke_test.mjs`, and progress style rules in `skills/feishu-workspace/SKILL.md`.
 
 Write operation starts too early:
 
 - Stop the operation and require a write preview.
-- Use `scripts/new_workspace_write_plan.ps1` before shared writes.
+- Use `node scripts/new_workspace_write_plan.mjs` before shared writes.

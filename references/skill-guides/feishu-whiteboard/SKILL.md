@@ -17,6 +17,6 @@ Creating or editing whiteboard nodes changes a shared visual document. Show a pr
 
 ## CLI discovery
 
-```powershell
+```bash
 lark-cli whiteboard --help
 ```

@@ -21,6 +21,6 @@ Creating or changing subscriptions affects event delivery. Show a preview and as
 
 ## CLI discovery
 
-```powershell
+```bash
 lark-cli event --help
 ```

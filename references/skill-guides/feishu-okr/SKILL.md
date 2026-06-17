@@ -17,6 +17,6 @@ Creating, editing, deleting, reordering, aligning, or changing weights affects O
 
 ## CLI discovery
 
-```powershell
+```bash
 lark-cli okr --help
 ```

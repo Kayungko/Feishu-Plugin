@@ -7,7 +7,7 @@ description: Reusable team workflows across Feishu/Lark docs, wiki, sheets, base
 
 Read `../feishu-shared/SKILL.md` first. Use router and domain skills as needed. Keep workflows generic; do not include project-specific resource registration or Unity rules here.
 
-For any write that affects a shared resource or another person, create a preview with `../../../scripts/new_workspace_write_plan.ps1` before executing the domain command.
+For any write that affects a shared resource or another person, create a preview with `../../../scripts/new_workspace_write_plan.mjs` before executing the domain command.
 
 ## Workflow: document or wiki to summary doc
 
@@ -51,8 +51,8 @@ For any write that affects a shared resource or another person, create a preview
 ## Workflow: minutes to tasks
 
 1. Fetch minutes summary/action items.
-2. Use `../../../scripts/extract_meeting_action_items.ps1` when transcript text or note_id is available.
-3. Use `../../../scripts/preview_task_creation.ps1` to normalize task title, owner hint, due date, and source.
+2. Use `../../../scripts/extract_meeting_action_items.mjs` when transcript text or note_id is available.
+3. Use `../../../scripts/preview_task_creation.mjs` to normalize task title, owner hint, due date, and source.
 4. Generate a write preview when the user asks to create tasks.
 5. Confirm before creating or assigning tasks.
 

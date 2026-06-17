@@ -11,6 +11,6 @@ Attendance data is personal and sensitive. Return only the requested date range 
 
 ## CLI discovery
 
-```powershell
+```bash
 lark-cli attendance --help
 ```

@@ -9,7 +9,7 @@ Read `../feishu-shared/SKILL.md` first.
 
 ## Read
 
-```powershell
+```bash
 lark-cli docs +fetch --api-version v2 --as user --doc "<url-or-token>" --format json
 ```
 
@@ -19,7 +19,7 @@ Use `--scope outline --max-depth 3` before full reads when the doc is large. Use
 
 Use XML by default. Use Markdown only when importing a local `.md` or when the user explicitly asks for Markdown.
 
-```powershell
+```bash
 lark-cli docs +create --api-version v2 --as user --parent-position my_library --content '<title>标题</title><p>内容</p>' --format json
 ```
 
@@ -29,7 +29,7 @@ For long docs, create a skeleton first, then append sections.
 
 Preview writes that alter shared docs. For append:
 
-```powershell
+```bash
 lark-cli docs +update --api-version v2 --as user --doc "<url-or-token>" --command append --content "<h1>标题</h1><p>内容</p>" --format json
 ```
 
@@ -39,7 +39,7 @@ Use XML for precise edits: `str_replace`, `block_insert_after`, `block_replace`,
 
 For images or files, prefer:
 
-```powershell
+```bash
 lark-cli docs +media-insert --api-version v2 --as user --doc "<doc>" --file "<path>"
 ```
 

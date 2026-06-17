@@ -17,6 +17,6 @@ Creating or overwriting Markdown files changes Drive content. Show a preview bef
 
 ## CLI discovery
 
-```powershell
+```bash
 lark-cli markdown --help
 ```

@@ -22,6 +22,6 @@ Read `../feishu-shared/SKILL.md` first.
 
 ## CLI discovery
 
-```powershell
+```bash
 lark-cli base --help
 ```

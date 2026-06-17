@@ -13,6 +13,6 @@ Reading note metadata, associated document token, display type, and unified tran
 
 ## CLI discovery
 
-```powershell
+```bash
 lark-cli note --help
 ```

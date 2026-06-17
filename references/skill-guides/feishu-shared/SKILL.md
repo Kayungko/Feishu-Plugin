@@ -28,21 +28,21 @@ Keep progress updates short and action-oriented. The user should feel that Feish
 ## Required preflight
 
 1. Check `lark-cli` when the environment is unknown:
-   ```powershell
-   ../../../scripts/check_lark_cli.ps1 -VerifyAuth
+   ```bash
+   node ../../../scripts/check_lark_cli.mjs --verify-auth
    ```
 2. If auth fails or needs refresh, run:
-   ```powershell
+   ```bash
    lark-cli auth status --verify
    ```
 3. If scope is missing, use the CLI hint. For user auth, prefer minimum scope login:
-   ```powershell
+   ```bash
    lark-cli auth login --scope "<missing_scope>" --no-wait --json
    ```
 
 ## Link routing
 
-Use `../../../scripts/parse_feishu_url.ps1` or read `references/link-routing.md` when a user provides a Feishu/Lark URL and the resource type is not obvious.
+Use `../../../scripts/parse_feishu_url.mjs` or read `references/link-routing.md` when a user provides a Feishu/Lark URL and the resource type is not obvious.
 
 ## Command conventions
 
@@ -50,7 +50,7 @@ Use `../../../scripts/parse_feishu_url.ps1` or read `references/link-routing.md`
 - For docs commands, always include `--api-version v2`.
 - Prefer shortcut commands such as `docs +fetch`, `docs +create`, `docs +update`, `sheets ...`, `wiki ...` before raw OpenAPI calls.
 - Use `--format json` for machine-readable output.
-- Use PowerShell native quoting and avoid shell string concatenation for user-provided values.
+- Pass user-provided values as separate arguments; avoid building command strings by concatenation.
 
 ## Risk policy
 

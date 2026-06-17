@@ -11,8 +11,8 @@ Use this skill first for ambiguous Feishu/Lark requests.
 
 1. Read `../feishu-shared/SKILL.md`.
 2. Parse links with:
-   ```powershell
-   ../../scripts/parse_feishu_url.ps1 "<url>"
+   ```bash
+   node ../../scripts/parse_feishu_url.mjs "<url>"
    ```
 3. Route to exactly one primary skill:
    - doc/docx creation, reading, editing: `feishu-doc`

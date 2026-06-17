@@ -13,6 +13,6 @@ Searching meetings, reading meeting detail, attendees, records, and meeting even
 
 ## CLI discovery
 
-```powershell
+```bash
 lark-cli vc --help
 ```

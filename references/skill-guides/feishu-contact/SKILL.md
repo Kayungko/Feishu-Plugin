@@ -17,6 +17,6 @@ Only return fields needed for the task. Do not expose phone, email, department, 
 
 ## CLI discovery
 
-```powershell
+```bash
 lark-cli contact --help
 ```

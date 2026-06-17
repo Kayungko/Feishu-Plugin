@@ -9,8 +9,8 @@ Read `../feishu-shared/SKILL.md` first.
 
 ## Diagnose
 
-```powershell
-../../scripts/check_lark_cli.ps1 -VerifyAuth
+```bash
+node ../../scripts/check_lark_cli.mjs --verify-auth
 lark-cli auth status --verify
 ```
 
@@ -22,13 +22,13 @@ Report that `lark-cli` is unavailable in PATH. Do not fabricate install commands
 
 Use split-flow:
 
-```powershell
+```bash
 lark-cli auth login --scope "<scope>" --no-wait --json
 ```
 
 Show the verification URL and tell the user to finish authorization, then complete with:
 
-```powershell
+```bash
 lark-cli auth login --device-code <device_code>
 ```
 

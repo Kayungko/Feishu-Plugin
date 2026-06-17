@@ -27,6 +27,6 @@ Updating another person's task or assigning work requires explicit confirmation.
 
 ## CLI discovery
 
-```powershell
+```bash
 lark-cli task --help
 ```

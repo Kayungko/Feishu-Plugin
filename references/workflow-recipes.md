@@ -12,7 +12,7 @@ User entry:
 
 Steps:
 
-1. Run `scripts/diagnose_feishu_workspace.ps1`.
+1. Run `scripts/diagnose_feishu_workspace.mjs`.
 2. Summarize available capabilities.
 3. List missing configuration or auth issues.
 4. Give next actions in plain language.
@@ -39,7 +39,7 @@ User entry:
 
 Steps:
 
-1. Run `scripts/get_team_help.ps1`.
+1. Run `scripts/get_team_help.mjs`.
 2. Summarize capability groups.
 3. Show 8 to 12 prompt examples.
 4. Do not list internal skill files or raw command help unless the user asks.
@@ -61,8 +61,8 @@ User entry:
 
 Steps:
 
-1. Run `scripts/run_workspace_smoke_test.ps1`.
-2. If the user only wants local package validation, use `-SkipAuthVerify`.
+1. Run `scripts/run_workspace_smoke_test.mjs`.
+2. If the user only wants local package validation, use `--skip-auth-verify`.
 3. Report failed checks first.
 4. Keep the result short; include version, script readiness, dry-run status, and auth status when checked.
 
@@ -87,14 +87,14 @@ User entry:
 Steps:
 
 1. Prepare the intended operation, target, payload summary, item count, and expected effect.
-2. Run `scripts/new_workspace_write_plan.ps1` to produce a stable preview.
+2. Run `scripts/new_workspace_write_plan.mjs` to produce a stable preview.
 3. Show the preview in plain language.
 4. Execute only after the user confirms the exact target and operation.
 
 Script example:
 
-```powershell
-../../scripts/new_workspace_write_plan.ps1 -Operation update-doc -Target "<doc-url>" -TargetType docx -PayloadSummary "append 3 sections" -Effect "adds content to existing shared doc"
+```bash
+node ../../scripts/new_workspace_write_plan.mjs --operation update-doc --target "<doc-url>" --target-type docx --payload-summary "append 3 sections" --effect "adds content to existing shared doc"
 ```
 
 Output:
@@ -122,8 +122,8 @@ Steps:
 
 1. Locate the Minutes, VC, or Note target.
 2. Read summary and transcript when available.
-3. Use `scripts/extract_meeting_action_items.ps1` for repeatable action-item extraction from pasted text, transcript files, or Note transcript by `note_id`.
-4. Use `scripts/preview_task_creation.ps1` to convert extracted items into task drafts.
+3. Use `scripts/extract_meeting_action_items.mjs` for repeatable action-item extraction from pasted text, transcript files, or Note transcript by `note_id`.
+4. Use `scripts/preview_task_creation.mjs` to convert extracted items into task drafts.
 5. Ask for confirmation before creating tasks or sending messages. Do not create tasks from heuristic extraction without a reviewed preview.
 
 Output:
@@ -135,10 +135,10 @@ Output:
 
 Script examples:
 
-```powershell
-../../scripts/extract_meeting_action_items.ps1 -Text "<meeting text>" -IncludeSourceLines
-../../scripts/extract_meeting_action_items.ps1 -NoteId "<note_id>" -OutputPath actions.json
-../../scripts/preview_task_creation.ps1 -ActionItemsPath actions.json
+```bash
+node ../../scripts/extract_meeting_action_items.mjs --text "<meeting text>" --include-source-lines
+node ../../scripts/extract_meeting_action_items.mjs --note-id "<note_id>" --output-path actions.json
+node ../../scripts/preview_task_creation.mjs --action-items-path actions.json
 ```
 
 ## Requirement To UI Intake Checklist
@@ -275,7 +275,7 @@ Steps:
 1. Parse resource names and paths.
 2. Infer category and variant when safe.
 3. Preview target fields and row count.
-4. Use `scripts/new_workspace_write_plan.ps1` for the sheet/base write preview.
+4. Use `scripts/new_workspace_write_plan.mjs` for the sheet/base write preview.
 5. Write rows only after confirmation.
 
 Output:

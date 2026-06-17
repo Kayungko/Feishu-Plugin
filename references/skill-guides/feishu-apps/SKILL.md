@@ -17,6 +17,6 @@ Creating, publishing, deploying, or changing app access scope affects users. Sho
 
 ## CLI discovery
 
-```powershell
+```bash
 lark-cli apps --help
 ```

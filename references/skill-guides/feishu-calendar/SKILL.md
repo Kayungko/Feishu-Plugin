@@ -26,6 +26,6 @@ Do not invite people or book rooms silently.
 
 ## CLI discovery
 
-```powershell
+```bash
 lark-cli calendar --help
 ```

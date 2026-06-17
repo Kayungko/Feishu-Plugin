@@ -26,6 +26,6 @@ Do not send sensitive content, @all, urgent notifications, SMS, or phone alerts 
 
 ## CLI discovery
 
-```powershell
+```bash
 lark-cli im --help
 ```

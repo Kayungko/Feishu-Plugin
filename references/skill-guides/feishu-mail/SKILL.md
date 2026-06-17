@@ -24,6 +24,6 @@ Before sending, replying, forwarding, deleting, moving, trashing, or modifying l
 
 ## CLI discovery
 
-```powershell
+```bash
 lark-cli mail --help
 ```

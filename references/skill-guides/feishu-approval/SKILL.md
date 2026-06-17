@@ -17,6 +17,6 @@ Passing, refusing, forwarding, adding sign, rollback, remind, or adding CC chang
 
 ## CLI discovery
 
-```powershell
+```bash
 lark-cli approval --help
 ```

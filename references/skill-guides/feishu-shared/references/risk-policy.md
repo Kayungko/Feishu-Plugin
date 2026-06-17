@@ -25,7 +25,7 @@ Use this policy for all Feishu/Lark operations.
 
 Confirmation must include target, operation, payload summary, and expected effect.
 
-Use `../../../../scripts/new_workspace_write_plan.ps1` when a stable machine-readable preview is useful. The script does not execute writes; it standardizes target, operation, payload summary, item count, expected effect, and confirmation wording.
+Use `../../../../scripts/new_workspace_write_plan.mjs` when a stable machine-readable preview is useful. The script does not execute writes; it standardizes target, operation, payload summary, item count, expected effect, and confirmation wording.
 
 ## Never do silently
 

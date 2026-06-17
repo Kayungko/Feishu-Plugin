@@ -11,7 +11,7 @@ Read `../feishu-shared/SKILL.md` first.
 
 Always inspect workbook/sheet structure before updating:
 
-```powershell
+```bash
 lark-cli sheets --help
 ```
 

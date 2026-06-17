@@ -24,14 +24,14 @@ Official CLI support checked:
 
 Re-check official support when needed:
 
-```powershell
-../../scripts/check_lark_cli_project_support.ps1
-../../scripts/check_lark_cli_project_support.ps1 -UseLatestNpx
+```bash
+node ../../scripts/check_lark_cli_project_support.mjs
+node ../../scripts/check_lark_cli_project_support.mjs --use-latest-npx
 ```
 
 If a future official CLI version adds `lark-cli project ...` or a `lark-project` skill, prefer the official command path and keep the custom Project OpenAPI layer as fallback.
 
-Use `../../scripts/parse_feishu_url.ps1` first to extract:
+Use `../../scripts/parse_feishu_url.mjs` first to extract:
 
 - `kind`
 - `projectKey`
@@ -43,9 +43,9 @@ Use `../../scripts/parse_feishu_url.ps1` first to extract:
 
 V2.1 provides a configurable Project API layer:
 
-- `../../scripts/check_lark_cli_project_support.ps1`
-- `../../scripts/get_feishu_project_config.ps1`
-- `../../scripts/invoke_feishu_project_api.ps1`
+- `../../scripts/check_lark_cli_project_support.mjs`
+- `../../scripts/get_feishu_project_config.mjs`
+- `../../scripts/invoke_feishu_project_api.mjs`
 - `../../templates/feishu-project.config.example.json`
 
 ## Required credentials
@@ -67,13 +67,13 @@ Do not store real secrets in the plugin package. Use either environment variable
 
 Default local config path:
 
-```powershell
+```bash
 $HOME\.codex\feishu-project.config.json
 ```
 
 Template:
 
-```powershell
+```bash
 ../../templates/feishu-project.config.example.json
 ```
 
@@ -92,8 +92,8 @@ Supported environment variables:
 
 Check config without exposing secrets:
 
-```powershell
-../../scripts/get_feishu_project_config.ps1
+```bash
+node ../../scripts/get_feishu_project_config.mjs
 ```
 
 ## Read-only MVP behavior
@@ -118,14 +118,14 @@ When credentials are configured, prefer read-only operations first:
 
 Use dry-run before real API calls:
 
-```powershell
-../../scripts/invoke_feishu_project_api.ps1 -Method GET -Path "/open_api/..." -DryRun
+```bash
+node ../../scripts/invoke_feishu_project_api.mjs --method GET --path "/open_api/..." --dry-run
 ```
 
 Then call with the official Project API path from documentation:
 
-```powershell
-../../scripts/invoke_feishu_project_api.ps1 -Method GET -Path "/open_api/..." -QueryJson '{"project_key":"mtsgame"}'
+```bash
+node ../../scripts/invoke_feishu_project_api.mjs --method GET --path "/open_api/..." --query-json '{"project_key":"mtsgame"}'
 ```
 
 ## Work item output
@@ -160,13 +160,13 @@ For `userGantt` or workbench links, return:
 
 Any update to a Project work item, node, comment, attachment, owner, status, schedule, or field value affects shared project state. Always show a preview and ask for confirmation before writing.
 
-The invocation script enforces this. `POST`, `PUT`, `PATCH`, and `DELETE` return `confirmation_required` unless `-ConfirmWrite` is passed after the user confirms the exact operation.
+The invocation script enforces this. `POST`, `PUT`, `PATCH`, and `DELETE` return `confirmation_required` unless `--confirm-write` is passed after the user confirms the exact operation.
 
 ## CLI discovery
 
 Use generic API discovery only after confirming Project credentials and API base URL:
 
-```powershell
+```bash
 lark-cli api --help
 lark-cli schema --help
 ```

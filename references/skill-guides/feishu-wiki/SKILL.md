@@ -24,7 +24,7 @@ Read `../feishu-shared/SKILL.md` first.
 
 When exact command flags are needed, run:
 
-```powershell
+```bash
 lark-cli wiki --help
 lark-cli wiki +create --help
 ```

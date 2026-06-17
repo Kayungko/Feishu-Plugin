@@ -21,6 +21,6 @@ For document images/attachments, prefer `feishu-doc` media commands when the tar
 
 ## CLI discovery
 
-```powershell
+```bash
 lark-cli drive --help
 ```
