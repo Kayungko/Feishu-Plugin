@@ -1,0 +1,45 @@
+{
+  "ok": true,
+  "mode": "preview",
+  "confirmationRequired": true,
+  "message": "Review the task drafts. Re-run with -ConfirmCreate to create tasks.",
+  "taskCount": 4,
+  "taskDrafts": [
+    {
+      "summary": "待办：张三负责整理资料索引，明天给初版。",
+      "description": "Owner hint: 张三\nDue hint: 明天\nPriority: high",
+      "due": "date:2026-06-19",
+      "assignee": "",
+      "tasklistId": "",
+      "needsConfirmation": false,
+      "sourceLine": 1
+    },
+    {
+      "summary": "李四跟进表格字段，本周完成。",
+      "description": "Owner hint: 李四\nDue hint: 本周\nPriority: normal",
+      "due": "",
+      "assignee": "",
+      "tasklistId": "",
+      "needsConfirmation": false,
+      "sourceLine": 2
+    },
+    {
+      "summary": "需要确认消息发送范围。",
+      "description": "Priority: normal",
+      "due": "",
+      "assignee": "",
+      "tasklistId": "",
+      "needsConfirmation": true,
+      "sourceLine": 3
+    },
+    {
+      "summary": "紧急：王五今天修复登录bug。",
+      "description": "Due hint: 今天\nPriority: high",
+      "due": "date:2026-06-18",
+      "assignee": "",
+      "tasklistId": "",
+      "needsConfirmation": true,
+      "sourceLine": 4
+    }
+  ]
+}

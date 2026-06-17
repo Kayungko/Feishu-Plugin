@@ -1,0 +1,15 @@
+{
+  "ok": true,
+  "dryRun": true,
+  "method": "GET",
+  "url": "https://project.feishu.cn/open_api/projects",
+  "headers": {},
+  "hasBody": false,
+  "writeRequiresConfirmation": false,
+  "configReady": false,
+  "missingConfig": [
+    "pluginId or pluginAccessToken",
+    "pluginSecret or pluginAccessToken",
+    "authPath or pluginAccessToken"
+  ]
+}

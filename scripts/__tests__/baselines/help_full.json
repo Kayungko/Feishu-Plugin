@@ -1,0 +1,83 @@
+{
+  "ok": true,
+  "plugin": {
+    "name": "feishu-workspace",
+    "version": "0.1.0",
+    "skillCount": 1
+  },
+  "summary": "Feishu Workspace handles common Feishu/Lark workspace workflows through lark-cli, with read-first and preview-before-write behavior.",
+  "capabilities": [
+    {
+      "name": "文档与 Wiki",
+      "canDo": [
+        "读取总结",
+        "结构化摘要",
+        "口语化分享稿",
+        "去 AI 味改写",
+        "创建或更新前预览"
+      ]
+    },
+    {
+      "name": "会议与任务",
+      "canDo": [
+        "读取会议纪要",
+        "提取行动项",
+        "生成任务草稿",
+        "确认后创建任务"
+      ]
+    },
+    {
+      "name": "表格与资料",
+      "canDo": [
+        "整理清单字段",
+        "预览写入行数",
+        "多链接资料索引",
+        "确认后写入表格或多维表"
+      ]
+    },
+    {
+      "name": "日程与协作",
+      "canDo": [
+        "查询日程",
+        "整理今日待办",
+        "起草消息",
+        "起草邮件",
+        "发送前确认"
+      ]
+    },
+    {
+      "name": "环境与排障",
+      "canDo": [
+        "检查登录",
+        "检查 CLI 版本",
+        "归类错误原因",
+        "提示缺失配置"
+      ]
+    }
+  ],
+  "prompts": [
+    "@feishu-workspace 读取这个飞书文档，总结重点、待办和需要确认的问题：<文档链接>",
+    "@feishu-workspace 把这篇文档整理成 10 分钟分享稿，按开场、每页讲什么、过渡句、收尾输出：<文档链接>",
+    "@feishu-workspace 把这篇文档去一下 AI 味，保留事实和原结构。先给改写稿，不要直接覆盖原文：<文档链接>",
+    "@feishu-workspace 把这些飞书链接整理成资料索引，按主题分组，每条包含标题、摘要、适合谁读：<多个链接>",
+    "@feishu-workspace 把这次会议纪要整理成行动项，先生成任务草稿，不要直接创建任务：<会议纪要>",
+    "@feishu-workspace 查询我今天的日程，并按时间顺序列出我需要准备的事情。",
+    "@feishu-workspace 把下面内容拆成任务草稿，按负责人、截止时间、优先级整理，先不要创建：<内容>",
+    "@feishu-workspace 把下面清单写入这个表格前，先给字段映射、行数和写入计划：<表格链接><清单>",
+    "@feishu-workspace 根据这份文档生成一条发给某人的飞书消息草稿，不要直接发送：<文档链接>",
+    "@feishu-workspace 这个飞书操作失败了，帮我判断是登录、权限、scope 还是配置问题：<错误信息>",
+    "@feishu-workspace 解析这个飞书项目需求单链接，告诉我项目 key、工作项类型、ID，以及当前还缺什么配置：<Project 链接>",
+    "@feishu-workspace 检查一下我的飞书环境，告诉我哪些能力可用，哪些还缺配置。"
+  ],
+  "operatingRules": [
+    "读取类请求默认直接执行。",
+    "写入共享资源、发消息、建任务、邀请参会人前必须先预览并等待确认。",
+    "默认使用用户身份；只有用户明确要求或资源归机器人所有时才使用 bot。",
+    "失败时优先给出原因分类和下一步修复动作，不输出长日志。"
+  ],
+  "hiddenByDefault": [
+    "internal skill list",
+    "raw CLI help",
+    "long version details"
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "ok": false,
+  "missing": [
+    "pluginId or pluginAccessToken",
+    "pluginSecret or pluginAccessToken",
+    "authPath or pluginAccessToken"
+  ],
+  "config": {
+    "baseUrl": "https://project.feishu.cn",
+    "pluginId": "",
+    "pluginSecret": "",
+    "pluginAccessToken": "",
+    "authPath": "",
+    "tokenField": "data.plugin_access_token",
+    "authMode": "",
+    "userKey": "",
+    "defaultProjectKey": "",
+    "defaultHeaders": {}
+  }
+}

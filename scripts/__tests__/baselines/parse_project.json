@@ -1,0 +1,11 @@
+{
+  "kind": "project-story",
+  "token": "myproj",
+  "projectKey": "myproj",
+  "projectRoute": "story",
+  "workItemType": "story",
+  "workItemId": "12345",
+  "nodeId": null,
+  "query": {},
+  "url": "https://project.feishu.cn/myproj/story/detail/12345"
+}

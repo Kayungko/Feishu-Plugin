@@ -1,0 +1,14 @@
+{
+  "ok": false,
+  "category": "permission-denied",
+  "severity": "medium",
+  "operation": "read-doc",
+  "target": "docx:Abc",
+  "userMessage": "当前身份没有访问权限。",
+  "recommendedFixes": [
+    "确认你能在浏览器打开目标链接。",
+    "让资源所有者给当前飞书账号授权。",
+    "确认 CLI 当前身份是否是你本人。"
+  ],
+  "raw": "permission denied: no access to document"
+}

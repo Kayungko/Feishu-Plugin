@@ -107,6 +107,16 @@ Expected checks:
 - meeting action extraction ready
 - task draft preview ready
 
+### Contract regression tests (maintainers)
+
+After changing any helper script, run the contract tests to confirm the JSON output shape is unchanged:
+
+```bash
+node ./scripts/run_contract_tests.mjs
+```
+
+Deterministic cases diff against baselines in `scripts/__tests__/baselines/` and run anywhere (no `lark-cli` needed); the three `lark-cli` probe cases are structural and auto-skip when `lark-cli` is not on PATH.
+
 ## First Thread Test
 
 In a new Codex thread, test these prompts:

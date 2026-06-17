@@ -1,0 +1,18 @@
+{
+  "ok": true,
+  "mode": "write-preview",
+  "operation": "update-doc",
+  "operationLabel": "Update existing document",
+  "risk": "confirm-before-execution",
+  "confirmationRequired": true,
+  "target": "https://example.feishu.cn/docx/demo",
+  "targetType": "docx",
+  "payloadSummary": "append 2 sections",
+  "itemCount": 2,
+  "effect": "adds reviewed draft content to an existing shared document",
+  "payloadPreviewPath": "",
+  "payloadPreviewExists": false,
+  "missingFields": [],
+  "nextAction": "Show this preview to the user and wait for explicit confirmation before executing the write.",
+  "confirmationPrompt": "确认后我会执行：update-doc -> https://example.feishu.cn/docx/demo"
+}
