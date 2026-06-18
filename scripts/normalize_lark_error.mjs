@@ -73,7 +73,13 @@ function buildSuggestedCommands(text, { operation, target, param, isSchema }) {
   for (const m of text.matchAll(helpRe)) push(m[0]);
 
   if (isSchema && cmds.length === 0) {
-    const domain = inferDomain([text, operation, target, param].filter(Boolean).join(" "));
+    // Trust caller-supplied target/operation over tokens that merely appear in
+    // the error prose: an example like "/docx/<token>" inside a wiki error must
+    // not override target="wiki:...". Fall back to the message only when the
+    // explicit fields name no domain.
+    const domain =
+      inferDomain([target, operation].filter(Boolean).join(" ")) ||
+      inferDomain([text, param].filter(Boolean).join(" "));
     if (domain) {
       push(`lark-cli skills read ${skillForDomain(domain)}`);
       const subMatch = `${text} ${operation || ""}`.match(new RegExp(`${domain}\\s+(\\+[\\w-]+)`));

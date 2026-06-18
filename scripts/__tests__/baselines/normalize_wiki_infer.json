@@ -1,0 +1,18 @@
+{
+  "ok": false,
+  "category": "schema-mismatch",
+  "severity": "medium",
+  "operation": "node-get",
+  "target": "wiki:W6L0wnjSaiTleckcxtrceX91ngc",
+  "userMessage": "命令参数或 schema 不匹配（常因 lark-cli 版本间 flag 改版或缺必填参数）。",
+  "recommendedFixes": [
+    "不要凭记忆改 flag 重试。",
+    "先按 suggestedCommands 读取版本匹配的命令 schema。",
+    "用 --help 确认当前参数后再组装命令。"
+  ],
+  "suggestedCommands": [
+    "lark-cli skills read lark-wiki",
+    "lark-cli wiki --help"
+  ],
+  "raw": "--obj-type is required for a raw obj_token \"W6L0wnjSaiTleckcxtrceX91ngc\" (one of: doc, docx, sheet, bitable, mindnote, slides, file); or pass a typed Lark URL (e.g. /docx/<token>) so it can be inferred"
+}
