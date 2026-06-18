@@ -47,14 +47,15 @@ export function run(opts) {
 
   const issues = [];
   if (!larkCheck.ok) issues.push("lark-cli not ready");
-  if (larkCheck.updateAvailable) issues.push("lark-cli out of date");
+  if (larkCheck.meetsExpected === false) issues.push("lark-cli below plugin minimum");
+  else if (larkCheck.updateAvailable) issues.push("lark-cli out of date");
   if (identity === "unknown") issues.push("auth status unknown");
   if (!projectConfig.ok) issues.push("Project OpenAPI config incomplete");
   if (projectSupport.ok && !projectSupport.projectSupported) issues.push("official lark-cli has no Project command");
 
   const fixes = [];
   if (!larkCheck.ok) fixes.push("Install or repair lark-cli.");
-  if (larkCheck.updateAvailable) fixes.push(larkCheck.updateMessage || "Run: lark-cli update");
+  if (larkCheck.meetsExpected === false || larkCheck.updateAvailable) fixes.push(larkCheck.updateMessage || "Run: lark-cli update");
   if (identity === "unknown") fixes.push("Run lark-cli auth status --verify, then login if needed.");
   if (!projectConfig.ok) fixes.push(`Create ${homedir()}/.codex/feishu-project.config.json from templates/feishu-project.config.example.json when Project access is needed.`);
   if (projectSupport.ok && !projectSupport.projectSupported) fixes.push("Use Project OpenAPI fallback for project.feishu.cn links.");
@@ -70,6 +71,8 @@ export function run(opts) {
       ok: larkCheck.ok,
       path: larkCheck.path,
       version: larkCheck.version,
+      expectedVersion: larkCheck.expectedVersion || "",
+      meetsExpected: larkCheck.meetsExpected !== false,
       updateAvailable: larkCheck.updateAvailable === true,
       identity,
       userName,

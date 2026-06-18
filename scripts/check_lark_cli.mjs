@@ -1,5 +1,12 @@
 import { parseArgs, isMain, emit } from "./_args.mjs";
-import { findLarkCli, runLarkCliRaw, joinLines } from "./_larkcli.mjs";
+import {
+  findLarkCli,
+  runLarkCliRaw,
+  joinLines,
+  MIN_LARK_CLI_VERSION,
+  parseVersion,
+  compareVersions,
+} from "./_larkcli.mjs";
 
 // Surface a binary/skills version skew early. `lark-cli doctor` emits a
 // cli_update check that is non-"pass" when the installed CLI is behind; an
@@ -35,23 +42,42 @@ export function run(opts) {
   }
 
   const versionRaw = runLarkCliRaw(["--version"]);
+  const version = joinLines(versionRaw.stdout);
   const result = {
     ok: true,
     path,
-    version: joinLines(versionRaw.stdout),
+    version,
+    expectedVersion: MIN_LARK_CLI_VERSION,
+    meetsExpected: true,
   };
+
+  // Plugin-authoritative floor: compare the installed version against the
+  // version the plugin was validated against. Below the floor, documented
+  // commands may not work, so prompt an upgrade. This is the cheap default
+  // check (no network) since `--version` was already invoked above.
+  const installed = parseVersion(version);
+  const expected = parseVersion(MIN_LARK_CLI_VERSION);
+  if (installed && expected && compareVersions(installed, expected) < 0) {
+    result.meetsExpected = false;
+    result.updateMessage = `This plugin expects lark-cli >= ${MIN_LARK_CLI_VERSION} but found ${installed.join(".")}. Run: lark-cli update`;
+  }
 
   if (verifyAuth) {
     const auth = runLarkCliRaw(["auth", "status", "--verify"]);
     result.authStatus = joinLines([auth.stdout, auth.stderr].filter(Boolean).join("\n"));
 
-    const update = detectUpdate();
-    if (update) {
-      result.updateAvailable = update.available;
-      if (update.available) {
-        result.updateMessage = update.message
-          ? `lark-cli out of date (${update.message}). Run: lark-cli update`
-          : "A newer lark-cli is available. Run: lark-cli update";
+    // Secondary, informational nudge: npm has a newer release. Only surface it
+    // when the plugin floor is already met, to avoid double-messaging an
+    // already-flagged below-floor install.
+    if (result.meetsExpected) {
+      const update = detectUpdate();
+      if (update) {
+        result.updateAvailable = update.available;
+        if (update.available) {
+          result.updateMessage = update.message
+            ? `lark-cli out of date (${update.message}). Run: lark-cli update`
+            : "A newer lark-cli is available. Run: lark-cli update";
+        }
       }
     }
   }

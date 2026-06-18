@@ -5,6 +5,30 @@ import { delimiter, join } from "node:path";
 
 const isWindows = process.platform === "win32";
 
+// The lark-cli version this plugin's guides, command schema, and contract tests
+// were validated against. Treated as a floor: an installed CLI at or above this
+// is fine (newer is assumed compatible — never recommend a downgrade); below it,
+// the plugin's documented commands may not exist or may use a retired interface.
+// Bump this when the plugin is re-validated against a newer lark-cli.
+export const MIN_LARK_CLI_VERSION = "1.0.55";
+
+// Pull a dotted version (e.g. "1.0.55") out of `lark-cli --version` output
+// ("lark-cli version 1.0.55"). Returns null when no version is found.
+export function parseVersion(text) {
+  const m = String(text || "").match(/(\d+)\.(\d+)\.(\d+)/);
+  return m ? [Number(m[1]), Number(m[2]), Number(m[3])] : null;
+}
+
+// Compare two [major, minor, patch] tuples. -1 if a<b, 0 if equal, 1 if a>b.
+export function compareVersions(a, b) {
+  for (let i = 0; i < 3; i++) {
+    const da = a[i] || 0;
+    const db = b[i] || 0;
+    if (da !== db) return da < db ? -1 : 1;
+  }
+  return 0;
+}
+
 // Candidate executable names, in priority order.
 function candidateNames() {
   if (isWindows) {
