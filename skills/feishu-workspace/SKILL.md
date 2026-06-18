@@ -51,7 +51,7 @@ When the user asks "你能做什么", "怎么用", "给我一些提示词", or s
 
 When the user asks to check whether the plugin package itself is ready, run `run_workspace_smoke_test.mjs`. Use `--skip-auth-verify` only when the user wants a package-only check without validating Feishu login.
 
-When a CLI/API call fails, run `normalize_lark_error.mjs` or use its categories before replying. Prefer actionable fixes over raw stack traces.
+When a CLI/API call fails, run `normalize_lark_error.mjs` or use its categories before replying. Prefer actionable fixes over raw stack traces. When it returns `category: schema-mismatch` or any `suggestedCommands`, run those `skills read` / `--help` commands to read the version-matched schema, then rebuild the command — do not retry by guessing flags from memory.
 
 ## Routing
 

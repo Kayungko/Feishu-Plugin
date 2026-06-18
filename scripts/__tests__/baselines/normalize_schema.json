@@ -1,0 +1,20 @@
+{
+  "ok": false,
+  "category": "schema-mismatch",
+  "severity": "medium",
+  "operation": "update-doc",
+  "target": "",
+  "userMessage": "命令参数或 schema 不匹配（常因 lark-cli 版本间 flag 改版或缺必填参数）。",
+  "recommendedFixes": [
+    "不要凭记忆改 flag 重试。",
+    "先按 suggestedCommands 读取版本匹配的命令 schema。",
+    "用 --help 确认当前参数后再组装命令。"
+  ],
+  "suggestedCommands": [
+    "lark-cli skills read lark-doc references/lark-doc-update.md",
+    "lark-cli skills read lark-doc references/lark-doc-xml.md",
+    "lark-cli skills read lark-doc references/lark-doc-md.md",
+    "lark-cli docs +update --help"
+  ],
+  "raw": "docs +update is v2-only; the old v1 interface has been shut down; legacy v1 flag(s) --mode, --markdown are no longer supported; --mode -> use --command; --markdown -> use --content with --doc-format markdown. Run `lark-cli skills read lark-doc references/lark-doc-update.md` for the current schema and examples. AI agents MUST read `lark-cli skills read lark-doc references/lark-doc-xml.md` (XML) or `lark-cli skills read lark-doc references/lark-doc-md.md` (Markdown). Run `lark-cli docs +update --help` for the latest command flags"
+}

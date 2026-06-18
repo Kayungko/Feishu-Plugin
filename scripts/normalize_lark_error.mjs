@@ -1,5 +1,87 @@
 import { existsSync, readFileSync } from "node:fs";
 import { parseArgs, isMain, emit } from "./_args.mjs";
+import { skillForDomain } from "./_larkcli.mjs";
+
+// Domain hints, ordered most-specific-first, for inferring which Feishu domain
+// a failed command belonged to when the CLI error itself names no skill doc.
+const DOMAIN_HINTS = [
+  ["docs", /docx|\bdocs?\b/],
+  ["wiki", /\bwiki\b/],
+  ["sheets", /\bsheets?\b/],
+  ["base", /\bbase\b|bitable/],
+  ["drive", /\bdrive\b/],
+  ["calendar", /\bcalendar\b/],
+  ["minutes", /\bminutes\b/],
+  ["vc", /\bvc\b/],
+  ["task", /\btasks?\b/],
+  ["mail", /\bmail\b/],
+  ["approval", /\bapproval\b/],
+  ["contact", /\bcontact\b/],
+  ["okr", /\bokr\b/],
+  ["attendance", /\battendance\b/],
+  ["slides", /\bslides?\b/],
+  ["whiteboard", /\bwhiteboard\b/],
+  ["note", /\bnote\b/],
+  ["event", /\bevent\b/],
+  ["apps", /\bapps\b/],
+  ["markdown", /\bmarkdown\b/],
+  ["im", /\bim\b/],
+];
+
+function inferDomain(s) {
+  const lower = String(s || "").toLowerCase();
+  for (const [domain, re] of DOMAIN_HINTS) {
+    if (re.test(lower)) return domain;
+  }
+  return null;
+}
+
+// Best-effort parse of a lark-cli structured error body. Returns the inner
+// error fields when present, or an empty object for plain-text input.
+function parseStructuredError(text) {
+  try {
+    const json = JSON.parse(text);
+    const error = json && json.error ? json.error : {};
+    return {
+      type: error.type ?? null,
+      subtype: error.subtype ?? null,
+      message: error.message ?? null,
+      param: error.param ?? null,
+    };
+  } catch {
+    return { type: null, subtype: null, message: null, param: null };
+  }
+}
+
+// Build the list of concrete next-step commands for a schema/flag failure.
+// Priority: surface commands the CLI already printed (version-matched, exact);
+// only when none are present do we infer the domain and point at its skill+help.
+function buildSuggestedCommands(text, { operation, target, param, isSchema }) {
+  const cmds = [];
+  const seen = new Set();
+  const push = (c) => {
+    const t = String(c).trim();
+    if (t && !seen.has(t)) {
+      seen.add(t);
+      cmds.push(t);
+    }
+  };
+
+  const skillsRe = /lark-cli skills read\s+[\w-]+\s+[^\s`'")]+/g;
+  for (const m of text.matchAll(skillsRe)) push(m[0]);
+  const helpRe = /lark-cli\s+[\w-]+(?:\s+\+[\w-]+)?\s+--help/g;
+  for (const m of text.matchAll(helpRe)) push(m[0]);
+
+  if (isSchema && cmds.length === 0) {
+    const domain = inferDomain([text, operation, target, param].filter(Boolean).join(" "));
+    if (domain) {
+      push(`lark-cli skills read ${skillForDomain(domain)}`);
+      const subMatch = `${text} ${operation || ""}`.match(new RegExp(`${domain}\\s+(\\+[\\w-]+)`));
+      push(subMatch ? `lark-cli ${domain} ${subMatch[1]} --help` : `lark-cli ${domain} --help`);
+    }
+  }
+  return cmds;
+}
 
 export function run(opts) {
   let message = String(opts.message ?? "");
@@ -13,6 +95,17 @@ export function run(opts) {
 
   const text = String(message);
   const lower = text.toLowerCase();
+  const structured = parseStructuredError(text);
+  const param = structured.param ?? "";
+
+  // A schema/flag mismatch is the highest-value category to detect: it is what
+  // makes documented commands get rejected across CLI versions. Gate the broad
+  // "validation"/"is required" signals behind a structured validation type or
+  // an explicit flag token so we don't steal permission/not-found errors.
+  const structuredValidation = structured.subtype === "invalid_argument" || structured.type === "validation";
+  const flagKeywords = /v2-only|legacy v1 flag|no longer supported|unknown flag|unrecognized|unexpected argument|invalid_argument/.test(lower);
+  const requiredFlag = /is required/.test(lower) && /--[\w-]+/.test(text);
+  const isSchema = structuredValidation || flagKeywords || requiredFlag;
 
   let category = "unknown";
   let severity = "medium";
@@ -32,6 +125,11 @@ export function run(opts) {
     severity = "medium";
     userMessage = "飞书项目 OpenAPI 配置不完整，无法读取或修改项目需求单。";
     fixes = ["从 templates/feishu-project.config.example.json 复制配置模板。", "补充 Project pluginId/pluginSecret/authPath 或 pluginAccessToken。", "重新运行 scripts/get_feishu_project_config.mjs 验证。"];
+  } else if (isSchema) {
+    category = "schema-mismatch";
+    severity = "medium";
+    userMessage = "命令参数或 schema 不匹配（常因 lark-cli 版本间 flag 改版或缺必填参数）。";
+    fixes = ["不要凭记忆改 flag 重试。", "先按 suggestedCommands 读取版本匹配的命令 schema。", "用 --help 确认当前参数后再组装命令。"];
   } else if (/permission|forbidden|access denied|no permission|无权限|没有权限|403/.test(lower)) {
     category = "permission-denied";
     severity = "medium";
@@ -69,6 +167,13 @@ export function run(opts) {
     fixes = ["安装 @larksuite/cli。", "确认 npm 全局 bin 在 PATH 中。", "安装后重新打开终端或 Codex。"];
   }
 
+  const suggestedCommands = buildSuggestedCommands(text, {
+    operation,
+    target,
+    param,
+    isSchema: category === "schema-mismatch",
+  });
+
   return {
     ok: false,
     category,
@@ -77,6 +182,7 @@ export function run(opts) {
     target,
     userMessage,
     recommendedFixes: fixes,
+    suggestedCommands,
     raw: message,
   };
 }

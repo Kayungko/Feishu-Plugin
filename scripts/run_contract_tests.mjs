@@ -43,6 +43,10 @@ const BASELINE_DATE = "2026-06-18";
 
 const sample = "待办：张三负责整理资料索引，明天给初版。\n李四跟进表格字段，本周完成。\n需要确认消息发送范围。\n紧急：王五今天修复登录bug。";
 
+// A real lark-cli v2-only rejection. Asserts normalize tags it schema-mismatch
+// and passes through the exact `skills read` / `--help` commands the CLI emitted.
+const schemaErrSample = "docs +update is v2-only; the old v1 interface has been shut down; legacy v1 flag(s) --mode, --markdown are no longer supported; --mode -> use --command; --markdown -> use --content with --doc-format markdown. Run `lark-cli skills read lark-doc references/lark-doc-update.md` for the current schema and examples. AI agents MUST read `lark-cli skills read lark-doc references/lark-doc-xml.md` (XML) or `lark-cli skills read lark-doc references/lark-doc-md.md` (Markdown). Run `lark-cli docs +update --help` for the latest command flags";
+
 function baseline(name) {
   return JSON.parse(readFileSync(join(baselineDir, `${name}.json`), "utf8"));
 }
@@ -123,6 +127,7 @@ export async function run() {
     ["parse_wiki", parseUrl({ url: "https://sample.feishu.cn/wiki/Wik987?sheet=ST1" })],
     ["extract_err", extractErr({ input: "{}" })],
     ["normalize_err", normErr({ message: "permission denied: no access to document", operation: "read-doc", target: "docx:Abc" })],
+    ["normalize_schema", normErr({ message: schemaErrSample, operation: "update-doc" })],
     ["write_plan", writePlan({ operation: "update-doc", target: "https://example.feishu.cn/docx/demo", targetType: "docx", payloadSummary: "append 2 sections", itemCount: 2, effect: "adds reviewed draft content to an existing shared document" })],
     ["extract_actions", extractActions({ text: sample, includeSourceLines: true })],
     ["help_short", teamHelp({ mode: "short" })],

@@ -1,5 +1,5 @@
 import { parseArgs, isMain, emit } from "./_args.mjs";
-import { findLarkCli, runLarkCli } from "./_larkcli.mjs";
+import { findLarkCli, runLarkCli, skillForDomain } from "./_larkcli.mjs";
 
 function parseCommands(helpText) {
   const commands = [];
@@ -25,8 +25,6 @@ const expectedDomains = [
   "drive", "event", "im", "mail", "markdown", "minutes", "note", "okr",
   "sheets", "slides", "task", "vc", "whiteboard", "wiki",
 ];
-
-const skillNameOverrides = { docs: "lark-doc" };
 
 export function run(opts) {
   const includeHelp = Boolean(opts.includeHelp);
@@ -61,9 +59,7 @@ export function run(opts) {
     }
 
     const domains = expectedDomains.map((domain) => {
-      const skillName = Object.prototype.hasOwnProperty.call(skillNameOverrides, domain)
-        ? skillNameOverrides[domain]
-        : `lark-${domain}`;
+      const skillName = skillForDomain(domain);
       return {
         name: domain,
         command: commands.includes(domain),

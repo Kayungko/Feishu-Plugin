@@ -29,6 +29,21 @@ export function compareVersions(a, b) {
   return 0;
 }
 
+// Domain -> lark-cli skill name. Most domains map to `lark-<domain>`; only the
+// exceptions live here. Shared by capability discovery and error normalization
+// so both resolve the same "which skill documents this domain" answer.
+export const DOMAIN_SKILL_OVERRIDES = { docs: "lark-doc" };
+
+// Resolve a domain (e.g. "docs", "wiki") to its skill name (e.g. "lark-doc",
+// "lark-wiki"), honoring the override table above.
+export function skillForDomain(domain) {
+  const d = String(domain || "");
+  if (Object.prototype.hasOwnProperty.call(DOMAIN_SKILL_OVERRIDES, d)) {
+    return DOMAIN_SKILL_OVERRIDES[d];
+  }
+  return `lark-${d}`;
+}
+
 // Candidate executable names, in priority order.
 function candidateNames() {
   if (isWindows) {

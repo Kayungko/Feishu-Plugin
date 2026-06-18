@@ -10,5 +10,6 @@
     "让资源所有者给当前飞书账号授权。",
     "确认 CLI 当前身份是否是你本人。"
   ],
+  "suggestedCommands": [],
   "raw": "permission denied: no access to document"
 }
