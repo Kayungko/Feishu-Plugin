@@ -88,6 +88,7 @@ Read only the relevant internal guide when the task needs more detail:
 
 - Use `--as user` unless there is a clear reason to use `--as bot`.
 - For docs commands, include `--api-version v2`.
+- `lark-cli` command flags change between versions. Before composing a doc/wiki/sheet/base write, confirm the current syntax from the version-matched skill (`lark-cli skills read <skill> ...`) or `lark-cli <domain> --help` rather than relying on memorized flags. If a command is rejected as a "legacy flag" or "v2-only", re-read the schema instead of retrying.
 - Prefer shortcut commands such as `docs +fetch`, `docs +create`, `docs +update`, `calendar +agenda`, `contact +search-user`, `sheets ...`, and `wiki ...` before raw OpenAPI calls.
 - For `project.feishu.cn` links, use URL parsing and `feishu-project`; do not route them to normal Docs, Task, or Wiki commands.
 - For Feishu Project reads/writes, first check `get_feishu_project_config.mjs`; if credentials are missing, return parsed URL context plus the missing configuration fields.
@@ -99,4 +100,4 @@ Read only the relevant internal guide when the task needs more detail:
 
 Before writes that affect shared resources or other people, show a concise preview and ask for confirmation. Use `node ../../scripts/new_workspace_write_plan.mjs` when the operation has a concrete target and payload. If `lark-cli` exits with `confirmation_required`, stop and ask the user. Do not append `--yes` unless the user explicitly confirms the exact operation.
 
-When a CLI call fails, summarize the attempted operation, target, error message, and likely fix. If `_notice.update` appears, finish the current task and mention the available `lark-cli update`.
+When a CLI call fails, summarize the attempted operation, target, error message, and likely fix. If `_notice.update` appears, or the preflight reports `updateAvailable: true`, finish the current task and mention the available `lark-cli update` — an out-of-date CLI is a common cause of rejected flags.

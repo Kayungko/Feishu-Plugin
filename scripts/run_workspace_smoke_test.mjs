@@ -87,6 +87,8 @@ export function run(opts) {
     ok: larkCheck.ok,
     path: larkCheck.path,
     version: larkCheck.version,
+    updateAvailable: larkCheck.updateAvailable === true,
+    updateMessage: larkCheck.updateMessage || "",
     auth: authSummary,
   };
 
